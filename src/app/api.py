@@ -5,6 +5,7 @@ from .constants.config import settings
 from .db.database import Base, engine
 from .routers.auth import router as auth_router
 from .routers.user import router as user_router
+from .routers.car import router as car_router
 from .db.database import get_db
 from fastapi.staticfiles import StaticFiles
 import os
@@ -43,6 +44,8 @@ app.include_router(
     auth_router, tags=["Authenication"], prefix=f"{PREFIX}/auth"
 )
 app.include_router(user_router, tags=["User"], prefix=f"{PREFIX}/user")
+app.include_router(car_router, tags=["Car"], prefix=f"{PREFIX}/car")
+
 
 @app.on_event("startup")
 async def startup_event():
