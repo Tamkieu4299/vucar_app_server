@@ -20,9 +20,7 @@ class InspecResponseSchema(BaseModel):
         orm_mode = True
 
 class InspecUpdateSchema(BaseModel):
-    fieldName: str
-    status: bool
-    note: str = None
+    stats: dict
 
     class Config:
         orm_mode = True

@@ -24,7 +24,7 @@ async def create_inspec(
     db: Session = Depends(get_db),
 ):
     hash_inspec_data = inspec_data.dict() 
-    hash_inspec_data["stats"] = get_criterias()
+    # hash_inspec_data["stats"] = get_criterias()
     inspec: Inspectation = Inspectation(**hash_inspec_data)
     new_inspec = await add_inspectation(inspec, db)
 
@@ -66,7 +66,7 @@ async def get_criterias_api():
 async def update_by_id(
     id: int, inspec: InspecUpdateSchema, db: Session = Depends(get_db)
 ):
-    updated_inspec = await update_inspectation(id, db, inspec.fieldName, inspec.status, inspec.note)
+    updated_inspec = await update_inspectation(id, db, inspec.stats)
     if updated_inspec is None:
         logger.info(f"Invalid inspec with ID: {id}")
         raise NotFoundException(detail=f"Invalid inspec with ID: {id}")

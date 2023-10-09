@@ -12,7 +12,7 @@ def get_criterias():
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')
         for criteria in soup.find_all('h3', class_="flex items-center gap-2"):
-            dict[criteria.get_text()] = {"status": False , "note": ""}
+            dict[criteria.get_text()] = {"status": False , "note": "Not yet checked"}
         return dict
     else:
         print('Failed to fetch the web page')

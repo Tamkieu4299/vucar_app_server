@@ -18,24 +18,23 @@ def read_inspectation(inspectation_id: int, db: Session) -> Inspectation:
     )
     return inspectation
 
-async def update_inspectation(inspectation_id: int, db: Session, fieldName: str, status: bool, note: str = None):
+async def update_inspectation(inspectation_id: int, db: Session, inspec_data: dict):
     inspec = db.query(Inspectation).filter(Inspectation.inspectation_id == inspectation_id and Inspectation.is_deleted == False).first()
-
+    print(inspec_data)
     if inspec:
-        json_data = inspec.stats
-        print(fieldName in json_data)
-        if fieldName in json_data:
-            if status:
-                json_data[fieldName]["status"] = status
-                json_data[fieldName]["note"] =  ""
+        # json_data = inspec.stats
+        # if fieldName in json_data:
+        #     if status:
+        #         json_data[fieldName]["status"] = status
+        #         json_data[fieldName]["note"] =  ""
 
-            else:
-                if not note:
-                    return None
-                json_data[fieldName]["status"] = status
-                json_data[fieldName]["note"] =  note
+        #     else:
+        #         if not note:
+        #             return None
+        #         json_data[fieldName]["status"] = status
+        #         json_data[fieldName]["note"] =  note
             
-            inspec.stats = json_data
+            inspec.stats = inspec_data
             print(inspec.stats)
             db.commit()
             db.refresh(inspec)
