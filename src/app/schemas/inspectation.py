@@ -12,8 +12,8 @@ class CreateInspecSchema(BaseModel):
 
 class InspecResponseSchema(BaseModel):
     inspectation_id: int
-    user_id: int
-    car_id: int
+    user_id: str
+    car_id: str
     stats: dict
 
     class Config:

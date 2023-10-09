@@ -18,8 +18,7 @@ logger = setup_logger(__name__)
 
 @router.post(
     "/create",
-    status_code=status.HTTP_201_CREATED,
-    response_model=ResponseData,
+    status_code=status.HTTP_201_CREATED
 )
 async def create_car(
     car_data: CreateCarSchema,

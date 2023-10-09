@@ -10,7 +10,8 @@ from ..utils.exception import (
     NotFoundException,
 )
 from typing import List
-
+from ..crud.user import read_user
+from ..crud.car import read_car
 router = APIRouter()
 logger = setup_logger(__name__)
 
@@ -51,7 +52,14 @@ async def get_inspect(inspec_id: int, db: Session = Depends(get_db)):
 )
 async def get_inspecs(db: Session = Depends(get_db)):
     inspec = await all_inspectations(db)
-    rs = [i.__dict__ for i in inspec]
+    rs = []
+    for i in inspec:
+        user = read_user(i.user_id, db)
+        car = read_car(i.car_id, db)
+        i.user_id = user.name
+        i.car_id = car.name
+        rs.append(i.__dict__)
+    # rs = [i.__dict__ for i in inspec]
     return rs
 
 @router.get(
