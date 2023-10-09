@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from typing import List
-
+from sqlalchemy import update
 from ..models.inspectation import Inspectation
 
 async def add_inspectation(inspectation: Inspectation, db: Session) -> Inspectation:
@@ -18,7 +18,29 @@ def read_inspectation(inspectation_id: int, db: Session) -> Inspectation:
     )
     return inspectation
 
+async def update_inspectation(inspectation_id: int, db: Session, fieldName: str, status: bool, note: str = None):
+    inspec = db.query(Inspectation).filter(Inspectation.inspectation_id == inspectation_id and Inspectation.is_deleted == False).first()
 
+    if inspec:
+        json_data = inspec.stats
+        print(fieldName in json_data)
+        if fieldName in json_data:
+            if status:
+                json_data[fieldName]["status"] = status
+                json_data[fieldName]["note"] =  ""
+
+            else:
+                if not note:
+                    return None
+                json_data[fieldName]["status"] = status
+                json_data[fieldName]["note"] =  note
+            
+            inspec.stats = json_data
+            print(inspec.stats)
+            db.commit()
+            db.refresh(inspec)
+            return inspec
+    return None
 def soft_delete(inspectation_id: str, db: Session) -> Inspectation:
     inspectation = (
         db.query(Inspectation)

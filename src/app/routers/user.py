@@ -21,8 +21,6 @@ from ..models.user import User
 from ..schemas.response_schema import ResponseData
 from ..schemas.user import UserResponseSchema, UserUpdateSchema
 from ..utils.exception import (
-    InvalidDestination,
-    InvalidFileType,
     NotFoundException,
 )
 from ..utils.handle_file import validate_file_type
