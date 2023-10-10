@@ -1,13 +1,13 @@
 version: "2"
 
 services:
-  voiads-service-dev:
+  vucar-service-dev:
     build:
       context: ./src
       dockerfile: ./Dockerfile
       target: development
-    image: voiads-app-server-image-dev
-    container_name: voiads-app-server-container-dev
+    image: vucar-app-server-image-dev
+    container_name: vucar-app-server-container-dev
     profiles:
       - dev
     ports:
@@ -39,27 +39,3 @@ services:
 
 volumes:
   postgres_db:
-
-
-  # voiads-service-prod:
-  #   build:
-  #     context: ./src
-  #     dockerfile: ./Dockerfile
-  #     target: production
-  #   image: voiads-app-server-image-prod
-  #   container_name: voiads-app-server-container-prod
-  #   profiles:
-  #     - prod
-  #   restart: always
-  #   networks:
-  #     - voiads_network
-  #   env_file:
-  #     - ./.env
-  #   environment:
-  #     - PORT=${PORT}
-  #   ports:
-  #     - "${PORT}:8001"
-  #   depends_on:
-  #     - postgres-db
-  #   links:
-  #     - postgres-db

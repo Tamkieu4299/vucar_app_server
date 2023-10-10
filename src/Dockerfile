@@ -1,7 +1,5 @@
 FROM python:3.11-slim as base
 
-RUN apt-get update && apt-get install -y ffmpeg
-
 WORKDIR /
 RUN mkdir /logs
 RUN mkdir -p /static/audio

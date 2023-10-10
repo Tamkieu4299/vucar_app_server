@@ -11,4 +11,7 @@ email-validator
 passlib 
 bcrypt
 pydub==0.25.1
+beautifulsoup4
+requests
+sqlalchemy-json
 numpy
